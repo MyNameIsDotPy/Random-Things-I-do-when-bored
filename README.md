@@ -1,2 +1,2 @@
-# Randon-Things-I-do-when-bored
+# Random-Things-I-do-when-bored
 Idk, wanna see what i do?
