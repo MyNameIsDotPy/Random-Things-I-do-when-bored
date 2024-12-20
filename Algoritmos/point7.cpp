@@ -7,10 +7,46 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+
+
+// Utils
+
+// Función para imprimir un arreglo
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++)
+        std::cout << arr[i] << " ";
+    std::cout << std::endl;
+}
+
+// Point 7a
+
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; ++i) {
+        int key = arr[i];
+        int j = i - 1;
+
+        // Move elements of arr[0...i-1] that are greater than key
+        // to one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+// Point 7e
+
+void insertionSortUltra(int arr[], int n) {
+    for (int i = 1; i < n; ++i) {
+        insertionSort(arr, i);
+    }
+}
+
 // Point 7g
 
-// Función para fusionar dos subarrays ordenados
-void merge(int arr[], int left, int mid, int right) {
+// Función para fusionar dos sub-arrays ordenados
+void merge1(int arr[], int left, int mid, int right) {
     int n1 = mid - left + 1; // Tamaño del subarray izquierdo
     int n2 = right - mid;    // Tamaño del subarray derecho
 
@@ -56,16 +92,16 @@ void merge(int arr[], int left, int mid, int right) {
     delete[] rightArr;
 }
 
-void mergeSort(int arr[], int left, int right) {
+void mergeSort1(int arr[], int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
 
         // Ordenar la primera y la segunda mitad
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
+        mergeSort1(arr, left, mid);
+        mergeSort1(arr, mid + 1, right);
 
         // Fusionar las dos mitades
-        merge(arr, left, mid, right);
+        merge1(arr, left, mid, right);
     }
 }
 // Final punto 7g
@@ -128,25 +164,9 @@ void mergeSort2(int arr[], int left, int right) {
 }
 // Final punto 7i
 
-// Función para imprimir un arreglo
-void printArray(int arr[], int size) {
-    for (int i = 0; i < size; i++)
-        std::cout << arr[i] << " ";
-    std::cout << std::endl;
-}
 
-void point7i() {
-    int arr[] = {12, 11, 13, 5, 6, 7};
-    int size = sizeof(arr) / sizeof(arr[0]);
 
-    std::cout << "Array original:\n";
-    printArray(arr, size);
 
-    mergeSort2(arr, 0, size - 1);
-
-    std::cout << "Array ordenado:\n";
-    printArray(arr, size);
-}
 
 void point7g() {
     int arr[] = {12, 11, 13, 5, 6, 7};
@@ -155,7 +175,7 @@ void point7g() {
     std::cout << "Array original:\n";
     printArray(arr, size);
 
-    mergeSort(arr, 0, size - 1);
+    mergeSort1(arr, 0, size - 1);
 
     std::cout << "Array ordenado:\n";
     printArray(arr, size);
@@ -175,6 +195,100 @@ void point7b() {
             // Medir tiempo de ejecución antes y después del sort
             auto inicio = std::chrono::high_resolution_clock::now();
             insertionSort(arr, n);
+            auto fin = std::chrono::high_resolution_clock::now();
+
+            std::chrono::duration<double, std::milli> duracion = fin - inicio;
+            double time = duracion.count();
+            tiempoBatch += time;
+        }
+
+        double media = tiempoBatch / 100;
+
+        if (outputFile.is_open()) {
+            // Write to the file
+            outputFile << media << std::endl;
+            // Close the file when done
+            // std::cout << "Data saved to output.txt\n";
+        } else {
+            // If the file couldn't be opened
+            std::cerr << "Unable to open file\n";
+        }
+
+        auto finBatch = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double, std::milli> duracion = finBatch - inicioBatch;
+        double time = duracion.count();
+
+        if (time > 5*60*1000) {
+            std::cout<<time<<std::endl;
+            break;
+        }
+        n++;
+    }
+    outputFile.close();
+}
+
+void point7f() {
+    int min = 1, max = 500;
+    int n = 1;
+    std::ofstream outputFile("./outputF.txt");
+    auto inicioBatch = std::chrono::high_resolution_clock::now();
+    while (true) {
+        double tiempoBatch = 0;
+        for (int experimento = 0; experimento < 100; ++experimento) {
+            int arr[n];
+            generarNumerosAleatorios(arr, n, min, max);
+
+            // Medir tiempo de ejecución antes y después del sort
+            auto inicio = std::chrono::high_resolution_clock::now();
+            insertionSortUltra(arr, n);
+            auto fin = std::chrono::high_resolution_clock::now();
+
+            std::chrono::duration<double, std::milli> duracion = fin - inicio;
+            double time = duracion.count();
+            tiempoBatch += time;
+        }
+
+        double media = tiempoBatch / 100;
+
+        if (outputFile.is_open()) {
+            // Write to the file
+            outputFile << media << std::endl;
+            // Close the file when done
+            // std::cout << "Data saved to output.txt\n";
+        } else {
+            // If the file couldn't be opened
+            std::cerr << "Unable to open file\n";
+        }
+
+        auto finBatch = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double, std::milli> duracion = finBatch - inicioBatch;
+        double time = duracion.count();
+
+        if (time > 5*60*1000) {
+            std::cout<<time<<std::endl;
+            break;
+        }
+        n++;
+    }
+    outputFile.close();
+}
+
+void point7h() {
+    int min = 1, max = 500;
+    int n = 1;
+    std::ofstream outputFile("./outputH.txt");
+    auto inicioBatch = std::chrono::high_resolution_clock::now();
+    while (true) {
+        double tiempoBatch = 0;
+        for (int experimento = 0; experimento < 100; ++experimento) {
+            int arr[n];
+            generarNumerosAleatorios(arr, n, min, max);
+
+            // Medir tiempo de ejecución antes y después del sort
+            auto inicio = std::chrono::high_resolution_clock::now();
+            mergeSort1(arr, 0, n-1);
             auto fin = std::chrono::high_resolution_clock::now();
 
             std::chrono::duration<double, std::milli> duracion = fin - inicio;
@@ -258,19 +372,5 @@ void point7j() {
 void generarNumerosAleatorios(int arr[], int n, int min, int max) {
     for (int i = 0; i < n; ++i) {
         arr[i] = min + rand() % (max - min + 1);
-    }
-}
-
-void insertionSort(int arr[], int n) {
-    for (int i = 1; i < n; ++i) {
-        int key = arr[i];
-        int j = i - 1;
-
-        // Mueve los elementos mayores que `key` hacia la derecha
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            --j;
-        }
-        arr[j + 1] = key;
     }
 }

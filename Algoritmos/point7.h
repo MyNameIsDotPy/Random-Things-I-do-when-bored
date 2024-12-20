@@ -8,9 +8,13 @@
 void insertionSort(int arr[], int n);
 
 void generarNumerosAleatorios(int arr[], int n, int min, int max);
-void point7g();
+
+
 void point7b();
-void point7i();
+void point7f();
+
+void point7g();
+void point7h();
 void point7j();
 
 #endif //POINT7_H
