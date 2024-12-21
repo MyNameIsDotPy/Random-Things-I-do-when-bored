@@ -1,0 +1,17 @@
+# ninja log v6
+7	70	7564068460408274	CMakeFiles/Algoritmos.dir/punto6.cpp.obj	4d5936b576d1077b
+2	333	7564068460368261	CMakeFiles/Algoritmos.dir/main.cpp.obj	fd0855972cb58add
+12	746	7564068460458276	CMakeFiles/Algoritmos.dir/point7.cpp.obj	4267b7f9e8a62bb6
+746	849	7564068467795603	Algoritmos.exe	bf6c1db0495a9505
+11	307	7564077552779346	CMakeFiles/Algoritmos.dir/main.cpp.obj	fd0855972cb58add
+9	767	7564077981834408	CMakeFiles/Algoritmos.dir/point7.cpp.obj	4267b7f9e8a62bb6
+767	850	7564077989414351	Algoritmos.exe	bf6c1db0495a9505
+25	346	7564089981657186	CMakeFiles/Algoritmos.dir/main.cpp.obj	fd0855972cb58add
+29	777	7564089981702214	CMakeFiles/Algoritmos.dir/point7.cpp.obj	4267b7f9e8a62bb6
+777	936	7564089989177189	Algoritmos.exe	bf6c1db0495a9505
+5	324	7564102296557061	CMakeFiles/Algoritmos.dir/main.cpp.obj	fd0855972cb58add
+9	770	7564102296602088	CMakeFiles/Algoritmos.dir/point7.cpp.obj	4267b7f9e8a62bb6
+771	852	7564102304211113	Algoritmos.exe	bf6c1db0495a9505
+37	824	7564388101145428	CMakeFiles/Algoritmos.dir/main.cpp.obj	fd0855972cb58add
+45	1251	7564388101225558	CMakeFiles/Algoritmos.dir/point7.cpp.obj	4267b7f9e8a62bb6
+1251	1565	7564388113279299	Algoritmos.exe	bf6c1db0495a9505

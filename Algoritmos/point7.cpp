@@ -164,8 +164,68 @@ void mergeSort2(int arr[], int left, int right) {
 }
 // Final punto 7i
 
+// Función auxiliar para combinar dos subarreglos y contar inversiones
+int mergeAndCount(int arr[], int temp[], int left, int mid, int right) {
+    int i = left;    // Índice del subarreglo izquierdo
+    int j = mid + 1; // Índice del subarreglo derecho
+    int k = left;    // Índice del subarreglo temporal
+    int inversions = 0;
 
+    // Combinar los dos subarreglos
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) {
+            temp[k++] = arr[i++];
+        } else {
+            temp[k++] = arr[j++];
+            inversions += (mid - i + 1); // Contar las inversiones
+        }
+    }
 
+    // Copiar los elementos restantes del subarreglo izquierdo
+    while (i <= mid) {
+        temp[k++] = arr[i++];
+    }
+
+    // Copiar los elementos restantes del subarreglo derecho
+    while (j <= right) {
+        temp[k++] = arr[j++];
+    }
+
+    // Copiar los elementos combinados al arreglo original
+    for (i = left; i <= right; i++) {
+        arr[i] = temp[i];
+    }
+
+    return inversions;
+}
+
+// Función recursiva que implementa Merge Sort y cuenta inversiones
+int mergeSortAndCount(int arr[], int temp[], int left, int right) {
+    int inversions = 0;
+
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+
+        // Contar inversiones en el subarreglo izquierdo
+        inversions += mergeSortAndCount(arr, temp, left, mid);
+
+        // Contar inversiones en el subarreglo derecho
+        inversions += mergeSortAndCount(arr, temp, mid + 1, right);
+
+        // Contar inversiones durante la combinación
+        inversions += mergeAndCount(arr, temp, left, mid, right);
+    }
+
+    return inversions;
+}
+
+// Función principal para contar inversiones
+int countAndSort(int arr[], int n) {
+    int* temp = new int[n]; // Arreglo temporal para la combinación
+    int inversions = mergeSortAndCount(arr, temp, 0, n - 1);
+    delete[] temp; // Liberar memoria
+    return inversions;
+}
 
 
 void point7g() {
@@ -336,6 +396,53 @@ void point7j() {
             // Medir tiempo de ejecución antes y después del sort
             auto inicio = std::chrono::high_resolution_clock::now();
             mergeSort2(arr, 0, n-1);
+            auto fin = std::chrono::high_resolution_clock::now();
+
+            std::chrono::duration<double, std::milli> duracion = fin - inicio;
+            double time = duracion.count();
+            tiempoBatch += time;
+        }
+
+        double media = tiempoBatch / 100;
+
+        if (outputFile.is_open()) {
+            // Write to the file
+            outputFile << media << std::endl;
+            // Close the file when done
+            // std::cout << "Data saved to output.txt\n";
+        } else {
+            // If the file couldn't be opened
+            std::cerr << "Unable to open file\n";
+        }
+
+        auto finBatch = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double, std::milli> duracion = finBatch - inicioBatch;
+        double time = duracion.count();
+
+        if (time > 5*60*1000) {
+            std::cout<<time<<std::endl;
+            break;
+        }
+        n++;
+    }
+    outputFile.close();
+}
+
+void point7l() {
+    int min = 1, max = 500;
+    int n = 1;
+    std::ofstream outputFile("./outputL.txt");
+    auto inicioBatch = std::chrono::high_resolution_clock::now();
+    while (true) {
+        double tiempoBatch = 0;
+        for (int experimento = 0; experimento < 100; ++experimento) {
+            int arr[n];
+            generarNumerosAleatorios(arr, n, min, max);
+
+            // Medir tiempo de ejecución antes y después del sort
+            auto inicio = std::chrono::high_resolution_clock::now();
+            countAndSort(arr, n);
             auto fin = std::chrono::high_resolution_clock::now();
 
             std::chrono::duration<double, std::milli> duracion = fin - inicio;

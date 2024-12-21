@@ -16,5 +16,6 @@ void point7f();
 void point7g();
 void point7h();
 void point7j();
+void point7l();
 
 #endif //POINT7_H

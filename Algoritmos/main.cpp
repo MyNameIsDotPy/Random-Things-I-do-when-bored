@@ -5,6 +5,5 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 using namespace std;
 int main() {
-    point7h();
-    point7j();
+    point7l();
 }

@@ -1,0 +1,3 @@
+C:/Users/0srma/repos/Random-Things-I-do-when-bored/Algoritmos/cmake-build-debug/CMakeFiles/Algoritmos.dir
+C:/Users/0srma/repos/Random-Things-I-do-when-bored/Algoritmos/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/0srma/repos/Random-Things-I-do-when-bored/Algoritmos/cmake-build-debug/CMakeFiles/rebuild_cache.dir
